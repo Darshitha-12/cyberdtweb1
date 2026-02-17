@@ -3,133 +3,257 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>CYBER DT - PREMIUM</title>
-<meta name="referrer" content="no-referrer-when-downgrade" />
+<title>CYBER DT - PREMIUM ECOSYSTEM</title>
 <link rel="icon" type="image/png" href="https://i.ibb.co/GQ65k7yC/cyber-dt-logo.png" />
 
 <style>
-    body { background-color: #030308; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; user-select: none; overflow: hidden; }
+    body { background-color: #030308; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; user-select: none; overflow-x: hidden; }
 
-    #watermark { position: absolute; color: rgba(0, 242, 255, 0.15); font-size: 14px; font-weight: bold; z-index: 2000; pointer-events: none; white-space: nowrap; text-transform: uppercase; display: none; }
-
-    #login-screen { text-align: center; background: #0a0a12; padding: 40px; border-radius: 15px; border: 2px solid #00f2ff; box-shadow: 0 0 30px rgba(0, 242, 255, 0.4); z-index: 100; width: 300px; }
-    input[type="password"] { background: #111; border: 1px solid #00f2ff; color: #00f2ff; padding: 12px; border-radius: 5px; width: 80%; text-align: center; outline: none; margin-bottom: 20px; font-size: 1.1rem; }
-
-    button { background: #00f2ff; color: black; border: none; padding: 12px 30px; font-weight: bold; cursor: pointer; border-radius: 5px; text-transform: uppercase; transition: 0.3s; width: 90%; }
-    button:hover { background: white; box-shadow: 0 0 15px #00f2ff; }
-
-    #content-screen { display: none; width: 95%; max-width: 850px; text-align: center; position: relative; padding: 20px; }
-
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-        border: 2px solid #00f2ff;
-        border-radius: 12px;
-        box-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
-        overflow: hidden;
-        background: #000;
-        margin-bottom: 20px;
+    /* Navigation Bar */
+    .nav-bar {
+        position: fixed; top: 0; width: 100%; background: rgba(10, 10, 18, 0.98);
+        display: none; justify-content: center; padding: 15px 0;
+        border-bottom: 1px solid #00f2ff; z-index: 1000; backdrop-filter: blur(15px);
     }
+    .nav-bar a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
+    .nav-bar a:hover, .nav-bar a.active { color: #00f2ff; text-shadow: 0 0 10px #00f2ff; }
 
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    /* Login Screen */
+    #login-screen { position: fixed; top:0; left:0; width:100%; height:100%; background: #030308; display: flex; align-items: center; justify-content: center; z-index: 2000; }
+    .login-box { text-align: center; background: #0a0a12; padding: 40px; border-radius: 15px; border: 2px solid #00f2ff; box-shadow: 0 0 30px rgba(0, 242, 255, 0.3); width: 300px; }
+    input[type="password"], .contact-input { background: #111; border: 1px solid #00f2ff; color: #00f2ff; padding: 12px; border-radius: 5px; width: 85%; text-align: center; outline: none; margin-bottom: 20px; font-size: 1rem; }
+    .btn-main { background: #00f2ff; color: black; border: none; padding: 12px 30px; font-weight: bold; cursor: pointer; border-radius: 5px; text-transform: uppercase; width: 95%; transition: 0.3s; }
+    .btn-main:hover { background: #fff; box-shadow: 0 0 15px #00f2ff; }
 
-    .pdf-box {
-        background: rgba(0, 242, 255, 0.05);
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid rgba(0, 242, 255, 0.2);
-    }
+    #content-screen { display: none; padding-top: 80px; text-align: center; }
+    .page-section { display: none; padding: 20px; max-width: 1100px; margin: 0 auto; }
+    .page-section.active { display: block; animation: fadeIn 0.8s ease-in-out; }
 
-    .pdf-btn {
-        display: inline-block;
-        background: transparent;
-        color: #00f2ff;
-        border: 1px solid #00f2ff;
-        padding: 10px 20px;
-        margin: 10px;
-        text-decoration: none;
-        font-size: 0.9rem;
-        border-radius: 4px;
-        transition: 0.3s;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-    .pdf-btn:hover { background: #00f2ff; color: black; box-shadow: 0 0 10px #00f2ff; }
+    /* Hero Section */
+    .hero { padding: 50px 20px; background: linear-gradient(to bottom, rgba(0, 242, 255, 0.15), transparent); border-radius: 20px; margin-bottom: 30px; border: 1px solid rgba(0, 242, 255, 0.1); }
+    .hero h1 { font-size: 3.5rem; margin: 0; color: #00f2ff; text-shadow: 0 0 20px rgba(0,242,255,0.5); letter-spacing: 3px; }
+    .hero p { font-size: 1.1rem; color: #ccc; max-width: 700px; margin: 15px auto; line-height: 1.6; }
 
-    .brand-text { color: #00f2ff; font-weight: bold; text-shadow: 0 0 10px #00f2ff; margin-top: 15px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; font-size: 0.8rem; }
+    /* Grid & Cards */
+    .section-title { font-size: 1.4rem; color: #00f2ff; margin: 40px 0 20px; text-transform: uppercase; border-left: 4px solid #00f2ff; padding-left: 15px; text-align: left; letter-spacing: 1px; }
+    .folder-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .folder-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 242, 255, 0.1); border-radius: 15px; width: 310px; overflow: hidden; transition: 0.4s; }
+    .folder-card:hover { border-color: #00f2ff; transform: scale(1.02); background: rgba(0, 242, 255, 0.05); }
+    .folder-thumb { width: 100%; height: 175px; background-size: cover; background-position: center; border-bottom: 1px solid rgba(0, 242, 255, 0.1); }
+    .folder-content { padding: 15px; text-align: left; }
+    .view-btn { background: transparent; border: 1px solid #00f2ff; color: #00f2ff; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; margin-bottom: 8px; transition: 0.3s; }
+    .view-btn:hover { background: #00f2ff; color: black; }
+
+    /* Live Button Styling */
+    .live-join-btn { display: none; background: #ff0000 !important; color: white !important; border: none !important; animation: pulse-red 1.5s infinite; }
+    @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
+
+    /* About Content */
+    .about-box { text-align: left; background: rgba(255,255,255,0.02); padding: 30px; border-radius: 15px; border: 1px solid rgba(0,242,255,0.1); line-height: 1.8; }
+    .highlight { color: #00f2ff; font-weight: bold; }
+
+    /* Video Display */
+    #video-display-area { display: none; margin-top: 20px; }
+    .video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; border: 2px solid #00f2ff; border-radius: 15px; overflow: hidden; box-shadow: 0 0 30px rgba(0,242,255,0.2); }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    #watermark { position: fixed; color: rgba(0, 242, 255, 0.05); font-size: 12px; z-index: 3000; pointer-events: none; display: none; }
 </style>
 </head>
 <body oncontextmenu="return false;">
 
-<div id="watermark">CYBER DT - PREMIUM</div>
+<div id="watermark">CYBER DT - SYSTEM SECURED</div>
 
 <div id="login-screen">
-    <h1 style="color: #00f2ff; letter-spacing: 3px; margin-top: 0;">CYBER DT</h1>
-    <p style="color: #aaa; font-size: 0.8rem; margin-bottom: 20px;">ACCESS ENCRYPTED PORTAL</p>
-    <input type="password" id="passInput" placeholder="ENTER KEY" />
-    <br>
-    <button onclick="checkPassword()">Unlock Now</button>
+    <div class="login-box">
+        <h1 style="color: #00f2ff; letter-spacing: 2px;">CYBER DT</h1>
+        <p style="color: #666; font-size: 0.8rem; margin-bottom: 20px;">RESTRICTED AREA - AUTH REQUIRED</p>
+        <input type="password" id="passInput" placeholder="ENTER ACCESS KEY" />
+        <button class="btn-main" onclick="checkPassword()">Decrypt & Enter</button>
+    </div>
+</div>
+
+<div id="nav-tabs" class="nav-bar">
+    <a onclick="showPage('home')" id="btn-home" class="active">Dashboard</a>
+    <a onclick="showPage('videos')" id="btn-videos">Class Library</a>
+    <a onclick="showPage('about')" id="btn-about">Expert Bio</a>
+    <a onclick="showPage('contact')" id="btn-contact">Contact</a>
 </div>
 
 <div id="content-screen">
-    <h1 style="color: #00f2ff; font-size: 1.5rem; margin-bottom: 15px;">PREMIUM ACCESS GRANTED</h1>
+    
+    <div id="home" class="page-section active">
+        <div class="hero">
+            <h1>CYBER DT</h1>
+            <p>Welcome to the premium tech ecosystem. This platform is specially designed for students and tech enthusiasts to access high-quality <span class="highlight">educational live classes</span> and advanced <span class="highlight">Cyber Security</span> resources in Sri Lanka.</p>
+        </div>
 
-    <div class="video-container">
-        <iframe id="video-player" 
-            src="" 
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
-            allowfullscreen>
-        </iframe>
+        <div class="section-title">Featured Tech Content</div>
+        <div class="folder-grid">
+            <div class="folder-card">
+                <div class="folder-thumb" style="background-image: url('https://img.youtube.com/vi/OEiwyITC5Kg/hqdefault.jpg');"></div>
+                <div class="folder-content">
+                    <div style="color:#00f2ff; font-weight:bold; font-size: 0.9rem;">A/L Time Management App</div>
+                    <button class="view-btn" style="margin-top:10px" onclick="showPage('videos'); playMedia('youtube', 'OEiwyITC5Kg')">Watch Now</button>
+                </div>
+            </div>
+            <div class="folder-card">
+                <div class="folder-thumb" style="background-image: url('https://img.youtube.com/vi/rMQjvO2290k/hqdefault.jpg');"></div>
+                <div class="folder-content">
+                    <div style="color:#00f2ff; font-weight:bold; font-size: 0.9rem;">Android Install Fix 2025</div>
+                    <button class="view-btn" style="margin-top:10px" onclick="showPage('videos'); playMedia('youtube', 'rMQjvO2290k')">Watch Now</button>
+                </div>
+            </div>
+            <div class="folder-card">
+                <div class="folder-thumb" style="background-image: url('https://img.youtube.com/vi/OgSA_lg0bjg/hqdefault.jpg');"></div>
+                <div class="folder-content">
+                    <div style="color:#00f2ff; font-weight:bold; font-size: 0.9rem;">Recover Deleted Messages</div>
+                    <button class="view-btn" style="margin-top:10px" onclick="showPage('videos'); playMedia('youtube', 'OgSA_lg0bjg')">Watch Now</button>
+                </div>
+            </div>
+            <div class="folder-card">
+                <div class="folder-thumb" style="background-image: url('https://img.youtube.com/vi/sVKnEvCmKiY/hqdefault.jpg');"></div>
+                <div class="folder-content">
+                    <div style="color:#00f2ff; font-weight:bold; font-size: 0.9rem;">WhatsApp Status Saver</div>
+                    <button class="view-btn" style="margin-top:10px" onclick="showPage('videos'); playMedia('youtube', 'sVKnEvCmKiY')">Watch Now</button>
+                </div>
+            </div>
+            <div class="folder-card">
+                <div class="folder-thumb" style="background-image: url('https://img.youtube.com/vi/yLConRjGd40/hqdefault.jpg');"></div>
+                <div class="folder-content">
+                    <div style="color:#00f2ff; font-weight:bold; font-size: 0.9rem;">Sinhala Phone Secrets</div>
+                    <button class="view-btn" style="margin-top:10px" onclick="showPage('videos'); playMedia('youtube', 'yLConRjGd40')">Watch Now</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="pdf-box">
-        <h3 style="color: #00f2ff; font-size: 0.9rem; margin-top: 0;">📚 DOWNLOAD MATERIALS</h3>
-        <a href="https://pdflink.to/cyberdt1/" target="_blank" class="pdf-btn">📄 Document 01</a>
-        <a href="https://pdflink.to/cyberdt/" target="_blank" class="pdf-btn">📄 Document 02</a>
+    <div id="videos" class="page-section">
+        <div id="folder-view">
+            <div class="section-title">Premium Educational Library</div>
+            <div class="folder-grid">
+                <div class="folder-card">
+                    <div class="folder-thumb" style="background-image: url('https://media.themoviedb.org/t/p/w780/yfiJyg8QhlPXdhPFieKZqp1171v.jpg');"></div>
+                    <div class="folder-content">
+                        <div style="color:#00f2ff; font-weight:bold;">SOORYA (2025) MOVIE</div>
+                        <button class="view-btn" style="margin-top:10px" onclick="playMedia('vimeo', '1159452386')">Watch Now</button>
+                    </div>
+                </div>
+                <div class="folder-card">
+                    <div class="folder-thumb" style="background-image: url('https://echem.lk/images/gallery/class/gallery-2.jpg');"></div>
+                    <div class="folder-content">
+                        <div style="color:#00f2ff; font-weight:bold;">AMILA DASSANAYAKE</div>
+                        <button id="live-amila" class="view-btn live-join-btn" onclick="playLive('amila')">🔴 JOIN LIVE CLASS</button>
+                        <button class="view-btn" onclick="playMedia('youtube', 'Ds0CStgHS3Q')">Open Recordings</button>
+                    </div>
+                </div>
+                <div class="folder-card">
+                    <div class="folder-thumb" style="background-image: url('https://i.ibb.co/hJbL1CyT/image.jpg');"></div>
+                    <div class="folder-content">
+                        <div style="color:#00f2ff; font-weight:bold;">DARSHANA UKUWELA</div>
+                        <button id="live-darshana" class="view-btn live-join-btn" onclick="playLive('darshana')">🔴 JOIN LIVE CLASS</button>
+                        <button class="view-btn" onclick="playMedia('youtube', 'oMR3IJJc7EY')">Open Recordings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="video-display-area">
+            <div class="video-wrapper"><iframe id="main-iframe" src="" allowfullscreen></iframe></div>
+            <button class="view-btn" style="margin-top:20px; width:200px;" onclick="closeMedia()">← BACK TO LIST</button>
+        </div>
     </div>
 
-    <div class="brand-text">SECURE SERVER 2.4 - CYBER DT</div>
+    <div id="about" class="page-section">
+        <div class="section-title">The Expert Profile</div>
+        <div class="about-box">
+            <p>This platform is a specialized digital ecosystem developed for <span class="highlight">Premium Live Education</span> and <span class="highlight">Cyber Security Awareness</span>. It is owned and operated by a leading <span class="highlight">Cyber Security Expert in Sri Lanka</span>, known as the founder of <span class="highlight">CYBER DT</span>.</p>
+            
+            <p>Our mission is to bridge the gap between complex technology and students by providing a secure, high-speed interface to access live lectures and technical tutorials. With years of experience in <span class="highlight">Ethical Hacking</span> and <span class="highlight">Software Analysis</span>, CYBER DT ensures that every user gets the best technical education through this streamlined portal.</p>
+            
+            <p style="border-top: 1px solid rgba(0,242,255,0.1); padding-top: 15px;">Official YouTube Channel: <span class="highlight">DT CYBER SL</span><br>
+            Focus Area: <span class="highlight">Cyber Security, Education Tech, System Security</span></p>
+        </div>
+    </div>
+
+    <div id="contact" class="page-section">
+        <div class="section-title">Support Portal</div>
+        <div style="background: rgba(10,10,18,0.5); padding: 30px; border-radius: 15px; border: 1px solid rgba(0,242,255,0.1); max-width: 450px; margin: 0 auto;">
+            <input type="text" id="contactName" class="contact-input" placeholder="Your Name" />
+            <textarea id="contactMsg" class="contact-input" style="height:120px; padding:10px; text-align:left;" placeholder="Describe your issue..."></textarea>
+            <button class="btn-main" onclick="sendWhatsApp()">Send to WhatsApp</button>
+        </div>
+    </div>
+    
+    <div style="color: #444; font-size: 0.7rem; margin: 40px 0; letter-spacing: 2px;">SECURE CORE V2.5 // CYBER DT SYSTEMS</div>
 </div>
 
 <script>
+// --- LIVE LINK SETUP ---
+// මෙතන ID එකක් දුන්නොත් විතරක් රතු Button එක පේනවා
+const liveLinks = {
+    amila: "Crj4_wMo3o8",    // උදා: "ID_HERE"
+    darshana: ""  // උදා: "ID_HERE"
+};
+
 function checkPassword() {
-    const pass = document.getElementById('passInput').value;
-    if (pass === "CYBERDT2026") {
+    if (document.getElementById('passInput').value === "CYBERDT2026") {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('content-screen').style.display = 'block';
+        document.getElementById('nav-tabs').style.display = 'flex';
         document.getElementById('watermark').style.display = 'block';
-
-        // YouTube Live Stream Video ID
-        const youtubeVideoID = "Ds0CStgHS3Q"; 
-        const youtubeEmbedURL = `https://www.youtube.com/embed/${youtubeVideoID}?autoplay=1`;
-
-        document.getElementById('video-player').src = youtubeEmbedURL;
-
+        updateLiveButtons();
         startWatermark();
-    } else { 
-        alert("මුරපදය වැරදියි! (Access Denied)"); 
-    }
+    } else { alert("ACCESS DENIED: INVALID KEY"); }
+}
+
+function updateLiveButtons() {
+    if(liveLinks.amila) document.getElementById('live-amila').style.display = 'block';
+    if(liveLinks.darshana) document.getElementById('live-darshana').style.display = 'block';
+}
+
+function playLive(teacher) {
+    if(liveLinks[teacher]) playMedia('youtube', liveLinks[teacher]);
+}
+
+function showPage(pageId) {
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    document.querySelectorAll('.nav-bar a').forEach(l => l.classList.remove('active'));
+    document.getElementById('btn-' + pageId).classList.add('active');
+    if(pageId !== 'videos') closeMedia();
+    window.scrollTo(0,0);
+}
+
+function playMedia(type, id) {
+    let url = type === 'youtube' ? `https://www.youtube.com/embed/${id}?autoplay=1` : `https://player.vimeo.com/video/${id}?autoplay=1`;
+    document.getElementById('folder-view').style.display = 'none';
+    document.getElementById('video-display-area').style.display = 'block';
+    document.getElementById('main-iframe').src = url;
+}
+
+function closeMedia() {
+    document.getElementById('folder-view').style.display = 'flex';
+    document.getElementById('video-display-area').style.display = 'none';
+    document.getElementById('main-iframe').src = "";
+}
+
+function sendWhatsApp() {
+    let name = document.getElementById('contactName').value;
+    let msg = document.getElementById('contactMsg').value;
+    if(name && msg) {
+        window.open(`https://wa.me/947XXXXXXXX?text=PortalRequest%0AName:${name}%0AMessage:${msg}`);
+    } else { alert("Please fill all details before sending."); }
 }
 
 function startWatermark() {
     const wm = document.getElementById('watermark');
     setInterval(() => {
-        const x = Math.random() * (window.innerWidth - 150);
-        const y = Math.random() * (window.innerHeight - 50);
-        wm.style.left = x + 'px';
-        wm.style.top = y + 'px';
-    }, 5000);
+        wm.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+        wm.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+    }, 4000);
 }
-
-// Security
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.onkeydown = function(e) {
-    if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
-        return false;
-    }
-};
 </script>
 </body>
 </html>
