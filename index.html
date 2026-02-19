@@ -98,7 +98,7 @@
         </div>
         <button class="view-btn" style="width:auto; padding: 15px 30px; margin-bottom: 30px;" onclick="goToBooks()">📚 GO TO SUMMARY BOOKS</button>
 
-        <div class="section-title">New Tutorials</div>
+        <div class="section-title">Tutorials & Updates</div>
         <div class="folder-grid">
             <div class="folder-card">
                 <div class="folder-thumb" style="background-image: url('https://img.youtube.com/vi/OEiwyITC5Kg/hqdefault.jpg');"></div>
@@ -120,12 +120,14 @@
     </div>
 
     <div id="live-section" class="page-section">
-        <div class="section-title" style="color: var(--live);">🔴 LIVE STREAMING</div>
-        <div class="video-wrapper"><iframe id="live-iframe"></iframe></div>
+        <div class="section-title" style="color: var(--live); border-color: var(--live);">🔴 LIVE STREAMING</div>
+        <div class="video-wrapper">
+            <iframe id="live-iframe" allowfullscreen allow="autoplay"></iframe>
+        </div>
+        <p style="margin-top: 15px; color: #888;">If the stream doesn't start, please refresh the page.</p>
     </div>
 
     <div id="videos" class="page-section">
-        
         <div id="main-library-view">
             <div class="section-title">Collections</div>
             <div class="folder-grid">
@@ -146,7 +148,6 @@
 
         <div id="darshana-view" style="display:none">
             <div class="section-title">DARSHANA UKUWELA - PHYSICS</div>
-            
             <div class="resource-box">
                 <h3 style="color: var(--neon); margin:0;">📚 SUMMARY BOOKS SECTION</h3>
                 <div class="pdf-grid">
@@ -156,7 +157,6 @@
                     <a href="https://drive.google.com/file/d/1jEL2N00owefOxOBLqSmWaOpM0pCqaAVe/view" target="_blank" class="pdf-link">තාපය (SM) <span>PDF</span></a>
                 </div>
             </div>
-
             <div class="folder-grid">
                 <div class="folder-card">
                     <div class="folder-thumb" style="background-image: url('https://img.youtube.com/vi/MfEZ48Gd9hE/hqdefault.jpg');"></div>
@@ -179,7 +179,7 @@
     <div id="about" class="page-section">
         <div class="hero">
             <h2>About CYBER DT</h2>
-            <p style="text-align: left; line-height: 1.8; color: #ccc;">Hi there! I’m your mentor. As a Cyber Security Expert, I realized that Sri Lankan A/L students need more than just textbooks—they need a mentor who understands the industry.</p>
+            <p style="text-align: left; line-height: 1.8; color: #ccc;">Hi there! I’m your mentor. As a Cyber Security Expert, I realized that Sri Lankan A/L students need more than just textbooks...</p>
         </div>
     </div>
 
@@ -194,8 +194,12 @@
 </div>
 
 <script>
+    // --- CONFIGURATION ---
     const ACCESS_KEY = "CYBERDT2026";
-    let currentMode = "main"; // Track if user is in Darshana folder or Main library
+    const LIVE_VIDEO_ID = ""; // මෙතනට YouTube Live ID එක දාන්න (උදා: "dQw4w9WgXcQ")
+    // ---------------------
+
+    let currentMode = "main";
 
     function checkPassword() {
         if (document.getElementById('passInput').value === ACCESS_KEY) {
@@ -203,6 +207,13 @@
             document.getElementById('content-screen').style.display = 'block';
             document.getElementById('nav-tabs').style.display = 'flex';
             document.getElementById('watermark').style.display = 'block';
+            
+            // Live Button Logic
+            if(LIVE_VIDEO_ID !== "") {
+                document.getElementById('btn-live-section').style.display = 'inline-block';
+                document.getElementById('live-iframe').src = `https://www.youtube.com/embed/${LIVE_VIDEO_ID}?autoplay=1`;
+            }
+            
             startWatermark();
         } else alert("WRONG KEY");
     }
@@ -213,6 +224,9 @@
         document.getElementById(p).classList.add('active');
         document.getElementById('btn-' + p).classList.add('active');
         closeDarshana(); 
+        if(p !== 'live-section' && LIVE_VIDEO_ID === "") {
+             document.getElementById('live-iframe').src = "";
+        }
     }
 
     function openDarshana() {
